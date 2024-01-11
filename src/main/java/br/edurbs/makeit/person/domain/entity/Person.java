@@ -46,6 +46,7 @@ public class Person {
 
     @Past
     LocalDate birthDate;
+
     String note;
 
     boolean active;
@@ -60,25 +61,26 @@ public class Person {
     Set<Phone> phones  = new HashSet<>();
 
     @Getter(AccessLevel.NONE)
-    Set<Email> emails  = new HashSet<>();
+    Set<Email> emails = new HashSet<>();
 
-    Set<Document> getDocuments() {
+
+    public Set<Document> getDocuments() {
         return Collections.unmodifiableSet(documents);
     }
 
-    Set<Address> getAddresses() {
+    public Set<Address> getAddresses() {
         return Set.copyOf(addresses);
     }
 
-    Set<Phone> getPhones() {
+    public Set<Phone> getPhones() {
         return Set.copyOf(phones);
     }
 
-    Set<Email> getEmails() {
+    public Set<Email> getEmails() {
         return Set.copyOf(emails);
     }
 
-    boolean isValid() {
+    public boolean isValid() {
         var factory = Validation.buildDefaultValidatorFactory();
         var validator = factory.getValidator();
         return validator.validate(this).isEmpty();
