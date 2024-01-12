@@ -25,6 +25,14 @@ class CnpjTest {
         assertEquals("12345678901234", cnpj.getNumber());
     }
 
+    @Test
+    void givenBlankNumber_whenCreateCnpj_thenThrows() {
+        var invalidNumber = "";
+        var cnpj = new Cnpj(invalidNumber);
+        assertThrows(DomainEntityValidationException.class,
+                () -> cnpj.validate());
+    }
+
 
     @Test
     void givenInvalidNumber_whenCreateCnpj_thenThrows() {

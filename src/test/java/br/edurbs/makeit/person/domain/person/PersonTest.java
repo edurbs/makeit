@@ -11,16 +11,14 @@ import java.time.OffsetDateTime;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import br.edurbs.makeit.person.domain.person.Email;
-import br.edurbs.makeit.person.domain.person.Gender;
-import br.edurbs.makeit.person.domain.person.Person;
-import br.edurbs.makeit.person.domain.person.PersonType;
-import br.edurbs.makeit.person.domain.person.Phone;
-import br.edurbs.makeit.person.domain.person.TreatmentPronoun;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import br.edurbs.makeit.person.domain.person.address.Address;
 import br.edurbs.makeit.person.domain.person.document.Document;
+import br.edurbs.makeit.person.domain.person.maindocument.Cpf;
 import br.edurbs.makeit.person.domain.person.maindocument.MainDocument;
 
+@ExtendWith(MockitoExtension.class)
 class PersonTest {
 
     Person person;
@@ -127,7 +125,7 @@ class PersonTest {
 
     @Test
     void givenMainDocument_whenSet_thenGetSameMainDocument() {
-        MainDocument mockDocument = mock(MainDocument.class);
+        MainDocument mockDocument = mock(Cpf.class);
         person.setMainDocument(mockDocument);
         assertEquals(mockDocument, person.getMainDocument());
     }
