@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.lang.NonNull;
 import br.edurbs.makeit.person.domain.entity.exception.InvalidCnpjException;
 import br.edurbs.makeit.person.domain.validation.ValidatorService;
 
@@ -17,8 +18,7 @@ import br.edurbs.makeit.person.domain.validation.ValidatorService;
 class CnpjTest {
 
     @Mock
-    ValidatorService mockedValidation;
-
+    @NonNull ValidatorService mockedValidation;
 
 
     void setMockValidationResponse(boolean valid) {

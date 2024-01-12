@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.springframework.lang.NonNull;
 import br.edurbs.makeit.person.application.usecase.validation.DefafultValidatorService;
 import br.edurbs.makeit.person.domain.entity.exception.InvalidCnpjException;
 import br.edurbs.makeit.person.domain.validation.ValidatorService;
@@ -13,10 +14,10 @@ import br.edurbs.makeit.person.domain.validation.ValidatorService;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CnpjIT {
 
-    static ValidatorService validatorService = new DefafultValidatorService();
+    @NonNull static ValidatorService validatorService = new DefafultValidatorService();
 
-    String invalidNumber = "10.987.054/0001-45";
-    String validNumber = "10.987.054/0001-46";
+    @NonNull String invalidNumber = "10.987.054/0001-45";
+    @NonNull String validNumber = "10.987.054/0001-46";
 
     @BeforeAll
     static void setup() {
