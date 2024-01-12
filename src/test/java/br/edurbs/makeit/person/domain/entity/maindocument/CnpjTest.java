@@ -30,14 +30,14 @@ class CnpjTest {
     void givenCnpj_whenCreate_thenGetSameCnpj() throws InvalidCnpjException {
         setMockValidationResponse(true);
         String number = "1234567890";
-        var cnpj = new Cnpj(number, mockedValidation);
+        var cnpj = new Cnpj(number);
         assertEquals(number, cnpj.getNumber());
     }
 
     @Test
     void givenCnpj_whenSet_thenGetSameCnpj() throws InvalidCnpjException {
         setMockValidationResponse(true);
-        var cnpj = new Cnpj("123", mockedValidation);
+        var cnpj = new Cnpj("123");
         String number = "12345678901234";
         cnpj.setNumber(number);
         assertEquals(number, cnpj.getNumber());
@@ -46,14 +46,14 @@ class CnpjTest {
     @Test
     void givenCnpjWithdots_whenCreate_thenGetSameCnpjWithoutDots() throws InvalidCnpjException {
         setMockValidationResponse(true);
-        var cnpj = new Cnpj("12.345.678/9012-34", mockedValidation);
+        var cnpj = new Cnpj("12.345.678/9012-34");
         assertEquals("12345678901234", cnpj.getNumber());
     }
 
     @Test
     void givenCnpjWithdots_whenSet_thenGetSameCnpjWithoutDots() throws InvalidCnpjException {
         setMockValidationResponse(true);
-        var cnpj = new Cnpj("123", mockedValidation);
+        var cnpj = new Cnpj("123");
         cnpj.setNumber("12.345.678/9012-34");
         assertEquals("12345678901234", cnpj.getNumber());
     }
@@ -61,13 +61,13 @@ class CnpjTest {
     @Test
     void givenInvalidCnpj_whenCreate_thenThrows() throws InvalidCnpjException {
         setMockValidationResponse(false);
-        assertThrows(InvalidCnpjException.class, () -> new Cnpj("123", mockedValidation));
+        assertThrows(InvalidCnpjException.class, () -> new Cnpj("123"));
     }
 
     @Test
     void givenInvalidCnpj_whenSet_thenThrows() throws InvalidCnpjException {
         setMockValidationResponse(true);
-        var cnpj = new Cnpj("123456789", mockedValidation);
+        var cnpj = new Cnpj("123456789");
         setMockValidationResponse(false);
         assertThrows(InvalidCnpjException.class, () -> cnpj.setNumber("123"));
     }
@@ -76,14 +76,14 @@ class CnpjTest {
     @ValueSource(strings = {"abc", ""})
     void givenLetterOrBlankCnpj_whenSet_thenThrows(String cnpjValue) {
         setMockValidationResponse(true);
-        var cnpj = new Cnpj("123456", mockedValidation);
+        var cnpj = new Cnpj("123456");
         assertThrows(InvalidCnpjException.class, () -> cnpj.setNumber(cnpjValue));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"abc", ""})
     void givenLetterOrBlankCnpj_whenCreate_thenThrows(String cnpjValue) {
-        assertThrows(InvalidCnpjException.class, () -> new Cnpj(cnpjValue, mockedValidation));
+        assertThrows(InvalidCnpjException.class, () -> new Cnpj(cnpjValue));
     }
 
 

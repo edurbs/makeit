@@ -1,44 +1,39 @@
 package br.edurbs.makeit.person.domain.entity.maindocument;
 import org.hibernate.validator.constraints.br.CNPJ;
-import br.edurbs.makeit.person.domain.entity.exception.InvalidCnpjException;
-import br.edurbs.makeit.person.domain.validation.ValidatorService;
+import br.edurbs.makeit.person.domain.entity.DomainEntityAbstract;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Cnpj implements MainDocument {
+@EqualsAndHashCode(callSuper=false)
+@Builder
+public class Cnpj extends DomainEntityAbstract implements MainDocument {
 
     @NotBlank
     @CNPJ
-    @Setter(AccessLevel.NONE)
-    private String number = "";
+    private String number;
 
-    @Getter(AccessLevel.NONE)
-    private final ValidatorService validator;
+    // public Cnpj(String number)
+    //         throws InvalidCnpjException {
+    //     this.setNumber(number);
+    // }
 
-    public Cnpj(String number, ValidatorService validation)
-            throws InvalidCnpjException {
-        this.validator = validation;
-        this.setNumber(number);
-    }
-
-    @Override
-    public void setNumber(String number) throws InvalidCnpjException {
-        String oldCnpj = this.number;
-        String newCnpj = number.replaceAll("\\D+", "");
-        if(newCnpj.isBlank()){
-            throw new InvalidCnpjException();
-        }
-        if (!oldCnpj.equals(newCnpj)) {
-            this.number = newCnpj;
-            if (!validator.isValid(this)) {
-                this.number = oldCnpj;
-                throw new InvalidCnpjException();
-            }
-        }
-    }
+    // @Override
+    // public void setNumber(String number) throws InvalidCnpjException {
+    //     String oldCnpj = this.number;
+    //     String newCnpj = number.replaceAll("\\D+", "");
+    //     if(newCnpj.isBlank()){
+    //         throw new InvalidCnpjException();
+    //     }
+    //     if (!oldCnpj.equals(newCnpj)) {
+    //         this.number = newCnpj;
+    //         if (!validator.isValid(this)) {
+    //             this.number = oldCnpj;
+    //             throw new InvalidCnpjException();
+    //         }
+    //     }
+    // }
 
 }
