@@ -25,33 +25,38 @@ class PersonTest {
     }
 
     @Test
-    void shouldCreatePerson() {
+    void givenValidParameterrs_whenCreate_shouldNotBeNull() {
         assertNotNull(person);
     }
 
     @Test
-    void shouldGetId() {
+    void givenValidPerson_whenCreate_thenIsValid() {
+        assertTrue(person.isValid());
+    }
+
+    @Test
+    void givenId_whenSet_thenGetSameId() {
         var id = "1";
         person.setId(id);
         assertEquals(id, person.getId());
     }
 
     @Test
-    void shouldGetCreatedAt() {
+    void givenCreateDateTime_whenSet_thenGetSameCreateDateTime() {
         OffsetDateTime dateTime = OffsetDateTime.parse("2024-01-11T13:42+03:00");
         person.setCreatedAt(dateTime);
         assertEquals(dateTime, person.getCreatedAt());
     }
 
     @Test
-    void shouldGetUpdatedAt() {
+    void givenUpdateDateTime_whenSet_thenGetSameUpdateDateTime() {
         OffsetDateTime dateTime = OffsetDateTime.parse("2024-01-11T13:42+03:00");
         person.setUpdatedAt(dateTime);
         assertEquals(dateTime, person.getUpdatedAt());
     }
 
     @Test
-    void shouldGetPersonType() {
+    void givenPersonType_whenSet_thenGetSamePersonType() {
         person.setPersonType(PersonType.FISICA);
         assertEquals(PersonType.FISICA, person.getPersonType());
 
@@ -60,120 +65,132 @@ class PersonTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenCreatingPersonWithNullPersonType() {
-        assertThrows(NullPointerException.class,
-                () -> new Person(null, "Some Name"));
+    void givenNullPersonType_whenCreate_thenThrows() {
+        assertThrows(NullPointerException.class, () -> new Person(null, "Some Name"));
     }
 
     @Test
-    void shouldGetPersonName() {
+    void givenNullPersonType_whenSet_thenThrows() {
+        assertThrows(NullPointerException.class,
+                () -> person.setPersonType(null));
+    }
+
+    @Test
+    void givenName_whenSet_thenGetSameName() {
         person.setName("Some Name");
         assertEquals("Some Name", person.getName());
     }
 
     @Test
-    void shouldThrowExceptionWhenCreatingPersonWithNullName() {
+    void givenNullName_whenCreate_thenThrows() {
         assertThrows(NullPointerException.class,
                 () -> new Person(PersonType.FISICA, null));
     }
 
     @Test
-    void shouldBeInvalidWhenCreatingPersonWithBlankName() {
+    void givenBlankName_whenCreate_thenIsNotValid() {
         var invalidPerson = new Person(PersonType.FISICA, "");
         assertFalse(invalidPerson.isValid());
     }
 
     @Test
-    void shouldBeInvalidWhenNameIsLessThan3Characters() {
+    void givenBlankName_whenSet_thenIsNotValid() {
+        var invalidPerson = new Person(PersonType.FISICA, "Valid Name");
+        invalidPerson.setName("");
+        assertFalse(invalidPerson.isValid());
+    }
+
+    @Test
+    void givenNameWithLessThan3Characters_whenCreate_thenIsNotValid() {
         var invalidPerson = new Person(PersonType.FISICA, "a");
         assertFalse(invalidPerson.isValid());
     }
 
     @Test
-    void shouldGetNickname() {
+    void givenNullName_whenSet_thenThrows() {
+        var invalidPerson = new Person(PersonType.FISICA, "Some valid name");
+        assertThrows(NullPointerException.class,
+                () -> invalidPerson.setName(null));
+    }
+
+    @Test
+    void givenNickname_whenSet_thenGetSameNickname() {
         person.setNickname("Some Nickname");
         assertEquals("Some Nickname", person.getNickname());
     }
 
     @Test
-    void shouldGetMainDocument() {
+    void givenMainDocument_whenSet_thenGetSameMainDocument() {
         MainDocument mockDocument = mock(MainDocument.class);
         person.setMainDocument(mockDocument);
         assertEquals(mockDocument, person.getMainDocument());
     }
 
     @Test
-    void shouldGetSetOfDocuments() {
+    void givenDocuments_whenSet_thenGetSameDocuments() {
         var documents = Set.of(mock(Document.class), mock(Document.class));
         person.setDocuments(documents);
         assertEquals(documents, person.getDocuments());
     }
 
     @Test
-    void shouldGetBirthDate() {
+    void givenBirthDate_whenSet_thenGetSameBirthDate() {
         var birthDate = LocalDate.now();
         person.setBirthDate(birthDate);
         assertEquals(birthDate, person.getBirthDate());
     }
 
     @Test
-    void shouldInvalidateWhenCreatingPersonWithPresenteOrFutureDate() {
+    void givenInvalidBirthDate_whenSet_thenisNotValid() {
         person.setBirthDate(LocalDate.now().plusDays(1));
         assertFalse(person.isValid());
     }
 
     @Test
-    void shouldGetNote() {
+    void givenNote_whenSet_thenGetSameNote() {
         person.setNote("Some Note");
         assertEquals("Some Note", person.getNote());
     }
 
     @Test
-    void shouldGetActive() {
+    void givenActive_whenSet_thenGetSameActive() {
         person.setActive(true);
         assertTrue(person.isActive());
     }
 
     @Test
-    void shouldGetTreatmentPronoun() {
+    void givenTreatmentPronoun_whenSet_thenGetSameTreatmentPronoun() {
         person.setTreatmentPronoun(TreatmentPronoun.SENHOR);
         assertEquals(TreatmentPronoun.SENHOR, person.getTreatmentPronoun());
     }
 
     @Test
-    void shouldGetGender() {
+    void givenGender_whenSet_thenGetSameGender() {
         person.setGender(Gender.MALE);
         assertEquals(Gender.MALE, person.getGender());
     }
 
     @Test
-    void shouldGetSetOfAddresses() {
+    void givenAddresses_whenSet_thenGetSameAddresses() {
         var addresses = Set.of(mock(Address.class), mock(Address.class));
         person.setAddresses(addresses);
         assertEquals(addresses, person.getAddresses());
     }
 
     @Test
-    void shouldGetSetOfPhones() {
+    void givenPhones_whenSet_thenGetSamePhones() {
         var phones = Set.of(mock(Phone.class), mock(Phone.class));
         person.setPhones(phones);
         assertEquals(phones, person.getPhones());
     }
 
     @Test
-    void shouldGetSetOfEmails() {
+    void givenEmails_whenSet_thenGetSameEmails() {
         var emails = Set.of(mock(Email.class), mock(Email.class));
         person.setEmails(emails);
         assertEquals(emails, person.getEmails());
     }
 
-    @Test
-    void shouldValidatePerson() {
-        assertTrue(person.isValid());
-
-        var invalidPerson = new Person(PersonType.FISICA, "");
-        assertFalse(invalidPerson.isValid());
-    }
 
 
 

@@ -8,7 +8,6 @@ import java.util.Set;
 import br.edurbs.makeit.person.domain.entity.address.Address;
 import br.edurbs.makeit.person.domain.entity.document.Document;
 import br.edurbs.makeit.person.domain.entity.maindocument.MainDocument;
-import jakarta.annotation.Nonnull;
 import jakarta.validation.Validation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -29,10 +28,10 @@ public class Person {
     OffsetDateTime createdAt;
     OffsetDateTime updatedAt;
 
-    @Nonnull
+    @lombok.NonNull
     PersonType personType;
 
-    @Nonnull
+    @lombok.NonNull
     @NotBlank
     @Size(min = 3)
     String name;
