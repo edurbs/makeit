@@ -1,8 +1,8 @@
 package br.edurbs.makeit.person.domain.person;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,42 +13,43 @@ import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationExc
 @ExtendWith(MockitoExtension.class)
 class EmailAddressTest {
 
-    String validEmail = "someValue@someValue.com";
     String id = "1";
 
     @Mock
     EmailType emailType;
 
+    @Mock
+    Email email;
+
     @Test
-    void classMustBeFinal() {
-        assertTrue(Modifier.isFinal(EmailAddress.class.getModifiers()));
+    void classMustBeNotFinal() {
+        assertFalse(Modifier.isFinal(EmailAddress.class.getModifiers()));
     }
 
     @Test
     void givenValidEmail_whenCreateEmail_thenNotThrows() {
-        assertDoesNotThrow(() -> new EmailAddress(id, emailType, validEmail));
+        assertDoesNotThrow(() -> new EmailAddress(id, emailType, email));
     }
 
     @Test
-    void givenBlankId_whenCreateEmail_thenThrows() {
-        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress("", emailType, validEmail));
-    }
-
-    @Test
-    void givenNullEmailType_whenCreateEmail_thenThrows() {
+    void givenInvalidId_whenCreateEmail_thenThrows() {
         assertThrows(DomainEntityValidationException.class,
-                () -> new EmailAddress(id, null, validEmail));
+                () -> new EmailAddress("", emailType, email));
+        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress(null, emailType, email));
     }
 
     @Test
-    void givenBlankEmail_whenCreateEmail_thenThrows() {
-        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress(id, emailType, ""));
+    void givenInvalidEmailType_whenCreateEmail_thenThrows() {
+        assertThrows(DomainEntityValidationException.class,
+                () -> new EmailAddress(id, null, email));
     }
 
     @Test
     void givenInvalidEmail_whenCreateEmail_thenThrows() {
-        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress(id, emailType, "invalidEmail"));
+        assertThrows(DomainEntityValidationException.class,
+                () -> new EmailAddress(id, emailType, null));
     }
+
 
 
 }
