@@ -22,15 +22,10 @@ class EmailTest {
     void getValue_returnsCorrectValue() {
         Email email = new Email("test@email.com");
 
+        assertNotNull(email);
         assertEquals("test@email.com", email.value());
     }
 
-    @Test
-    void createValidEmail_returnsEmail() {
-        Email email = new Email("test@email.com");
-
-        assertNotNull(email);
-    }
 
 
 }

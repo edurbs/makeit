@@ -1,16 +1,11 @@
 package br.edurbs.makeit.person.domain.person;
 
+import br.edurbs.makeit.person.domain.ValueObject;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
-@Data
-@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class EmailType {
-
-    @NotBlank
-    final String id;
-
-    @NotBlank
-    String description;
+public record EmailType (@NotBlank String value) implements ValueObject {
+    public EmailType(String value) {
+        this.value = value;
+        this.validate();
+    }
 }
