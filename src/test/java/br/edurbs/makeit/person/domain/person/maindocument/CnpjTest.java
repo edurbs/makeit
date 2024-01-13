@@ -2,7 +2,9 @@ package br.edurbs.makeit.person.domain.person.maindocument;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
 import br.edurbs.makeit.person.domain.person.exception.InvalidCnpjException;
@@ -42,5 +44,15 @@ class CnpjTest {
         var validNumber = "10.987.054/0001-46";
         var cnpj = new Cnpj(validNumber);
         assertDoesNotThrow(() -> cnpj.validate());
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        Cnpj cnpj1 = new Cnpj("value1");
+        Cnpj cnpj2 = new Cnpj("value1");
+
+        assertTrue(cnpj1.equals(cnpj2));
+        assertEquals(cnpj1.hashCode(), cnpj2.hashCode());
+        assertNotNull(cnpj1.toString());
     }
 }

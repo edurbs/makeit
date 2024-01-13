@@ -2,7 +2,10 @@ package br.edurbs.makeit.person.domain.person.maindocument;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
 import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
 import br.edurbs.makeit.person.domain.person.exception.InvalidCpfException;
@@ -42,5 +45,20 @@ class CpfTest {
         var validNumber = "324.818.410-85";
         var Cpf = new Cpf(validNumber);
         assertDoesNotThrow(() -> Cpf.validate());
+    }
+
+    @Test
+    void classMustBeFinal() {
+        assertTrue(Modifier.isFinal(Cpf.class.getModifiers()));
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        Cpf cpf1 = new Cpf("value1");
+        Cpf cpf2 = new Cpf("value1");
+
+        assertTrue(cpf1.equals(cpf2));
+        assertEquals(cpf1.hashCode(), cpf2.hashCode());
+        assertNotNull(cpf1.toString());
     }
 }
