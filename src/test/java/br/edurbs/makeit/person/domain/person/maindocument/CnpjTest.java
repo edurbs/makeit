@@ -10,46 +10,46 @@ import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationExc
 import br.edurbs.makeit.person.domain.person.exception.InvalidCnpjException;
 
 class CnpjTest {
+
+    String validNumberWithMask = "10.987.054/0001-46";
+    String validNumber = "10987054000146";
+
     @Test
     void givenCnpj_whenCreate_thenGetSameCnpj() {
-        String number = "1234567890";
-        var cnpj = new Cnpj(number);
-        assertEquals(number, cnpj.getNumber());
+        var cnpj = new Cnpj(validNumber);
+        assertEquals(validNumber, cnpj.value());
     }
 
     @Test
     void givenCnpjWithdots_whenCreate_thenGetSameCnpjWithoutDots() {
-        var cnpj = new Cnpj("12.345.678/9012-34");
-        assertEquals("12345678901234", cnpj.getNumber());
+        var cnpj = new Cnpj(validNumberWithMask);
+        assertEquals(validNumber, cnpj.value());
     }
 
     @Test
     void givenBlankNumber_whenCreateCnpj_thenThrows() {
-        var invalidNumber = "";
-        var cnpj = new Cnpj(invalidNumber);
+        var blankNumber = "";
         assertThrows(DomainEntityValidationException.class,
-                () -> cnpj.validate());
+                () -> new Cnpj(blankNumber));
     }
 
     @Test
     void givenInvalidNumber_whenCreateCnpj_thenThrows() {
         var invalidNumber = "10.987.054/0001-45";
-        var cnpj = new Cnpj(invalidNumber);
         assertThrows(DomainEntityValidationException.class,
-                () -> cnpj.validate());
+                () -> new Cnpj(invalidNumber));
     }
 
     @Test
     void givenValidNumber_whenCreateCnpj_thenNotThrows() throws InvalidCnpjException {
-        var validNumber = "10.987.054/0001-46";
         var cnpj = new Cnpj(validNumber);
         assertDoesNotThrow(() -> cnpj.validate());
     }
 
     @Test
     void testEqualsAndHashCode() {
-        Cnpj cnpj1 = new Cnpj("value1");
-        Cnpj cnpj2 = new Cnpj("value1");
+        Cnpj cnpj1 = new Cnpj(validNumber);
+        Cnpj cnpj2 = new Cnpj(validNumber);
 
         assertTrue(cnpj1.equals(cnpj2));
         assertEquals(cnpj1.hashCode(), cnpj2.hashCode());

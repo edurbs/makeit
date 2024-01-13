@@ -2,7 +2,6 @@ package br.edurbs.makeit.person.domain.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import br.edurbs.makeit.person.domain.person.PersonType;
 
  class PersonTypeTest {
 

@@ -194,9 +194,4 @@ class PersonTest {
         person.setEmails(emails);
         assertEquals(emails, person.getEmails());
     }
-
-
-
-
-
 }

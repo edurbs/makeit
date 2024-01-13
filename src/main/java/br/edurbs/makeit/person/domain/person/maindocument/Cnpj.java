@@ -1,19 +1,14 @@
 package br.edurbs.makeit.person.domain.person.maindocument;
+
 import org.hibernate.validator.constraints.br.CNPJ;
-import br.edurbs.makeit.person.domain.DomainEntityValidation;
+import br.edurbs.makeit.person.domain.ValueObject;
 import jakarta.validation.constraints.NotBlank;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
 
-@Value
-@EqualsAndHashCode(callSuper = false)
-public class Cnpj extends DomainEntityValidation implements MainDocument {
+public record Cnpj(@NotBlank @CNPJ String value) implements MainDocument, ValueObject {
 
-    @NotBlank
-    @CNPJ
-    private String number;
-
-    public Cnpj (String number){
-        this.number = number.replaceAll("\\D+", "");
+    public Cnpj(String value) {
+        this.value = value.replaceAll("\\D+", "");
+        this.validate();
     }
+
 }

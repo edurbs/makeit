@@ -11,40 +11,37 @@ import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationExc
 import br.edurbs.makeit.person.domain.person.exception.InvalidCpfException;
 
 class CpfTest {
+    String validNumberWithMask = "324.818.410-85";
+    String validNumber = "32481841085";
+
     @Test
     void givenCpf_whenCreate_thenGetSameCpf() {
-        String number = "20763426059";
-        var Cpf = new Cpf(number);
-        assertEquals(number, Cpf.getNumber());
+        var Cpf = new Cpf(validNumber);
+        assertEquals(validNumber, Cpf.value());
     }
 
     @Test
-    void givenCpfWithdots_whenCreate_thenGetSameCpfWithoutDots() {
-        var Cpf = new Cpf("324.818.410-85");
-        assertEquals("32481841085", Cpf.getNumber());
+    void givenCpfWithMask_whenCreate_thenGetSameCpfWithoutDots() {
+        var Cpf = new Cpf(validNumberWithMask);
+        assertEquals(validNumber, Cpf.value());
     }
 
     @Test
     void givenBlankNumber_whenCreateCpf_thenThrows() {
-        var invalidNumber = "";
-        var Cpf = new Cpf(invalidNumber);
         assertThrows(DomainEntityValidationException.class,
-                () -> Cpf.validate());
+                () -> new Cpf(""));
     }
 
     @Test
     void givenInvalidNumber_whenCreateCpf_thenThrows() {
         var invalidNumber = "324.818.410-86";
-        var Cpf = new Cpf(invalidNumber);
         assertThrows(DomainEntityValidationException.class,
-                () -> Cpf.validate());
+                () -> new Cpf(invalidNumber));
     }
 
     @Test
     void givenValidNumber_whenCreateCpf_thenNotThrows() throws InvalidCpfException {
-        var validNumber = "324.818.410-85";
-        var Cpf = new Cpf(validNumber);
-        assertDoesNotThrow(() -> Cpf.validate());
+        assertDoesNotThrow(() -> new Cpf(validNumber));
     }
 
     @Test
@@ -54,8 +51,8 @@ class CpfTest {
 
     @Test
     void testEqualsAndHashCode() {
-        Cpf cpf1 = new Cpf("value1");
-        Cpf cpf2 = new Cpf("value1");
+        Cpf cpf1 = new Cpf(validNumber);
+        Cpf cpf2 = new Cpf(validNumber);
 
         assertTrue(cpf1.equals(cpf2));
         assertEquals(cpf1.hashCode(), cpf2.hashCode());
