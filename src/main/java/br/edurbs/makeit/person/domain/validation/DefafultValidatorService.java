@@ -2,13 +2,11 @@ package br.edurbs.makeit.person.domain.validation;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
 import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
-@Service
 public class DefafultValidatorService {
     private final Validator validator;
 

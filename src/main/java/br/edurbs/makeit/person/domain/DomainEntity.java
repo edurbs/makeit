@@ -1,4 +1,4 @@
-package br.edurbs.makeit.person.domain.person;
+package br.edurbs.makeit.person.domain;
 
 import br.edurbs.makeit.person.domain.validation.DefafultValidatorService;
 
