@@ -1,18 +1,21 @@
 package br.edurbs.makeit.person.domain.person.maindocument;
 
 import org.hibernate.validator.constraints.br.CPF;
+import br.edurbs.makeit.person.domain.DomainEntityValidation;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 
-@Builder
-@Data
-public final class Cpf implements MainDocument {
+@Value
+@EqualsAndHashCode(callSuper = false)
+public class Cpf extends DomainEntityValidation implements MainDocument {
 
     @NotBlank
     @CPF
     private String number;
- // TODO CPF validation
 
+    public Cpf (String number){
+        this.number = number.replaceAll("\\D+", "");
+    }
 
 }
