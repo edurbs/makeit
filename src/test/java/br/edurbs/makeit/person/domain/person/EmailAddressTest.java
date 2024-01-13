@@ -14,6 +14,7 @@ import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationExc
 class EmailAddressTest {
 
     String validEmail = "someValue@someValue.com";
+    String id = "1";
 
     @Mock
     EmailType emailType;
@@ -25,23 +26,28 @@ class EmailAddressTest {
 
     @Test
     void givenValidEmail_whenCreateEmail_thenNotThrows() {
-        assertDoesNotThrow(() -> new EmailAddress(emailType, validEmail));
+        assertDoesNotThrow(() -> new EmailAddress(id, emailType, validEmail));
+    }
+
+    @Test
+    void givenBlankId_whenCreateEmail_thenThrows() {
+        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress("", emailType, validEmail));
     }
 
     @Test
     void givenNullEmailType_whenCreateEmail_thenThrows() {
         assertThrows(DomainEntityValidationException.class,
-                () -> new EmailAddress(null, validEmail));
+                () -> new EmailAddress(id, null, validEmail));
     }
 
     @Test
     void givenBlankEmail_whenCreateEmail_thenThrows() {
-        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress(emailType, ""));
+        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress(id, emailType, ""));
     }
 
     @Test
     void givenInvalidEmail_whenCreateEmail_thenThrows() {
-        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress(emailType, "invalidEmail"));
+        assertThrows(DomainEntityValidationException.class, () -> new EmailAddress(id, emailType, "invalidEmail"));
     }
 
 

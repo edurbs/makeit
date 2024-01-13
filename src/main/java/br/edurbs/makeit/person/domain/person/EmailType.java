@@ -1,13 +1,17 @@
 package br.edurbs.makeit.person.domain.person;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class EmailType {
-    String id;
+
+    @NotNull
+    @NotBlank
+    final String id;
+
     String description;
 }
