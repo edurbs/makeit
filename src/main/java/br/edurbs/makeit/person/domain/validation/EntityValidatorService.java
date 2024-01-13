@@ -7,10 +7,10 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
-public class DefafultValidatorService {
+public class EntityValidatorService {
     private final Validator validator;
 
-    public DefafultValidatorService() {
+    public EntityValidatorService() {
         this.validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
