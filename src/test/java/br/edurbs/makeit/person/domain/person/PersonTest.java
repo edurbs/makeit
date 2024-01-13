@@ -190,7 +190,7 @@ class PersonTest {
 
     @Test
     void givenEmails_whenSet_thenGetSameEmails() {
-        var emails = Set.of(mock(Email.class), mock(Email.class));
+        var emails = Set.of(mock(EmailAddress.class), mock(EmailAddress.class));
         person.setEmails(emails);
         assertEquals(emails, person.getEmails());
     }

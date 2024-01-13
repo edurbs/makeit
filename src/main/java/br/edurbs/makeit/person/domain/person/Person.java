@@ -60,7 +60,7 @@ public class Person {
     Set<Phone> phones  = new HashSet<>();
 
     @Getter(AccessLevel.NONE)
-    Set<Email> emails = new HashSet<>();
+    Set<EmailAddress> emails = new HashSet<>();
 
 
     public Set<Document> getDocuments() {
@@ -75,7 +75,7 @@ public class Person {
         return Set.copyOf(phones);
     }
 
-    public Set<Email> getEmails() {
+    public Set<EmailAddress> getEmails() {
         return Set.copyOf(emails);
     }
 

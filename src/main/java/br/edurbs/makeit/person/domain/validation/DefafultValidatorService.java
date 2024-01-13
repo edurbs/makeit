@@ -18,7 +18,12 @@ public class DefafultValidatorService {
         Set<ConstraintViolation<T>> violations = this.validator.validate(object);
         if (!violations.isEmpty()) {
             throw new DomainEntityValidationException(violations.stream()
-                    .map(ConstraintViolation::getMessage)
+                    .map(violation ->
+                            violation.getRootBeanClass().getSimpleName()
+                            + "." + violation.getPropertyPath()
+                            + ": " + violation.getMessage()
+
+                    )
                     .collect(Collectors.joining(", ")));
         }
     }

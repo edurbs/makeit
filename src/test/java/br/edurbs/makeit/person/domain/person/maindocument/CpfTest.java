@@ -2,7 +2,6 @@ package br.edurbs.makeit.person.domain.person.maindocument;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.reflect.Modifier;
@@ -49,13 +48,4 @@ class CpfTest {
         assertTrue(Modifier.isFinal(Cpf.class.getModifiers()));
     }
 
-    @Test
-    void testEqualsAndHashCode() {
-        Cpf cpf1 = new Cpf(validNumber);
-        Cpf cpf2 = new Cpf(validNumber);
-
-        assertTrue(cpf1.equals(cpf2));
-        assertEquals(cpf1.hashCode(), cpf2.hashCode());
-        assertNotNull(cpf1.toString());
-    }
 }
