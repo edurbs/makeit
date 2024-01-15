@@ -1,4 +1,4 @@
-package br.edurbs.makeit.person.application.usecase.validation;
+package br.edurbs.makeit.person.domain.validation;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
-import br.edurbs.makeit.person.domain.validation.PhoneValidator;
 
 public class MyPhoneValidator implements PhoneValidator {
 

@@ -1,11 +1,26 @@
 package br.edurbs.makeit.person.domain.person;
 
-import br.edurbs.makeit.person.domain.ValueObject;
+import br.edurbs.makeit.person.domain.DomainEntity;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
-public record Email(@NotBlank @jakarta.validation.constraints.Email String value) implements ValueObject {
-    public Email(String value) {
-        this.value = value;
+@Data
+public class Email implements DomainEntity {
+    @NotBlank
+    String id;
+
+    @NotNull
+    EmailType emailType;
+
+    @NotNull
+    EmailAddress emailAddress;
+
+    public Email(@NotBlank String id, EmailType emailType, EmailAddress emailAddress) {
+        this.id = id;
+        this.emailType = emailType;
+        this.emailAddress = emailAddress;
         this.validate();
     }
+
 }

@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
 import br.edurbs.makeit.person.domain.person.exception.InvalidCnpjException;
 
@@ -34,8 +36,17 @@ class CnpjTest {
     }
 
     @Test
-    void givenInvalidNumber_whenCreateCnpj_thenThrows() {
-        var invalidNumber = "10.987.054/0001-45";
+    void givenBlankNumber_whenCreateCnpj_thenThrowsMessage() {
+        var blankNumber = "";
+        var exception = assertThrows(DomainEntityValidationException.class,
+                () -> new Cnpj(blankNumber));
+        assertEquals("Cnpj.value: CNPJ inválido", exception.getMessage());
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = { "10987054000145", "10987054000147", "00-000-000/0000-00"})
+    void givenInvalidNumber_whenCreateCnpj_thenThrows(String invalidNumber) {
         assertThrows(DomainEntityValidationException.class,
                 () -> new Cnpj(invalidNumber));
     }
