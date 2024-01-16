@@ -13,57 +13,56 @@ import br.edurbs.makeit.person.domain.person.exception.InvalidCnpjException;
 
 class CnpjTest {
 
-    String validNumberWithMask = "10.987.054/0001-46";
-    String validNumber = "10987054000146";
+	String validNumberWithMask = "10.987.054/0001-46";
+	String validNumber = "10987054000146";
 
-    @Test
-    void givenCnpj_whenCreate_thenGetSameCnpj() {
-        var cnpj = new Cnpj(validNumber);
-        assertEquals(validNumber, cnpj.value());
-    }
+	@Test
+	void givenCnpj_whenCreate_thenGetSameCnpj() {
+		var cnpj = new Cnpj(validNumber);
+		assertEquals(validNumber, cnpj.value());
+	}
 
-    @Test
-    void givenCnpjWithdots_whenCreate_thenGetSameCnpjWithoutDots() {
-        var cnpj = new Cnpj(validNumberWithMask);
-        assertEquals(validNumber, cnpj.value());
-    }
+	@Test
+	void givenCnpjWithdots_whenCreate_thenGetSameCnpjWithoutDots() {
+		var cnpj = new Cnpj(validNumberWithMask);
+		assertEquals(validNumber, cnpj.value());
+	}
 
-    @Test
-    void givenBlankNumber_whenCreateCnpj_thenThrows() {
-        var blankNumber = "";
-        assertThrows(DomainEntityValidationException.class,
-                () -> new Cnpj(blankNumber));
-    }
+	@Test
+	void givenBlankNumber_whenCreateCnpj_thenThrows() {
+		var blankNumber = "";
+		assertThrows(DomainEntityValidationException.class, () -> new Cnpj(blankNumber));
+	}
 
-    @Test
-    void givenBlankNumber_whenCreateCnpj_thenThrowsMessage() {
-        var blankNumber = "";
-        var exception = assertThrows(DomainEntityValidationException.class,
-                () -> new Cnpj(blankNumber));
-        assertEquals("Cnpj.value: CNPJ inválido", exception.getMessage());
-    }
+	@Test
+	void givenBlankNumber_whenCreateCnpj_thenThrowsMessage() {
+		var blankNumber = "";
+		var exception =
+				assertThrows(DomainEntityValidationException.class, () -> new Cnpj(blankNumber));
+		assertEquals("Cnpj.value: CNPJ inválido", exception.getMessage());
+	}
 
 
-    @ParameterizedTest
-    @ValueSource(strings = { "10987054000145", "10987054000147", "00-000-000/0000-00"})
-    void givenInvalidNumber_whenCreateCnpj_thenThrows(String invalidNumber) {
-        assertThrows(DomainEntityValidationException.class,
-                () -> new Cnpj(invalidNumber));
-    }
+	@ParameterizedTest
+	@ValueSource(strings = {"0", "123", "10987054000145", "10987054000147", "00-000-000/0000-00",
+			"00000000000000"})
+	void givenInvalidNumber_whenCreateCnpj_thenThrows(String invalidNumber) {
+		assertThrows(DomainEntityValidationException.class, () -> new Cnpj(invalidNumber));
+	}
 
-    @Test
-    void givenValidNumber_whenCreateCnpj_thenNotThrows() throws InvalidCnpjException {
-        var cnpj = new Cnpj(validNumber);
-        assertDoesNotThrow(() -> cnpj.validate());
-    }
+	@Test
+	void givenValidNumber_whenCreateCnpj_thenNotThrows() throws InvalidCnpjException {
+		var cnpj = new Cnpj(validNumber);
+		assertDoesNotThrow(() -> cnpj.validate());
+	}
 
-    @Test
-    void testEqualsAndHashCode() {
-        Cnpj cnpj1 = new Cnpj(validNumber);
-        Cnpj cnpj2 = new Cnpj(validNumber);
+	@Test
+	void testEqualsAndHashCode() {
+		Cnpj cnpj1 = new Cnpj(validNumber);
+		Cnpj cnpj2 = new Cnpj(validNumber);
 
-        assertTrue(cnpj1.equals(cnpj2));
-        assertEquals(cnpj1.hashCode(), cnpj2.hashCode());
-        assertNotNull(cnpj1.toString());
-    }
+		assertTrue(cnpj1.equals(cnpj2));
+		assertEquals(cnpj1.hashCode(), cnpj2.hashCode());
+		assertNotNull(cnpj1.toString());
+	}
 }

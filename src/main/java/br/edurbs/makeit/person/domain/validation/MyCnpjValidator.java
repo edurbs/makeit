@@ -1,36 +1,32 @@
 package br.edurbs.makeit.person.domain.validation;
 
-import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
+import br.edurbs.makeit.person.domain.validation.annotation.ValidCNPJ;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
-/*
- * This class is a copy of the CNPJValidator class from the stella-core library.
- * from https://github.com/caelum/caelum-stella/blob/master/stella-core/src/main/java/br/com/caelum/
- * stella/validation/CNPJValidator.java
- */
-public class MyCnpjValidator implements CnpjValidator {
 
-	public void validate(String cnpj) {
+public class MyCnpjValidator implements ConstraintValidator<ValidCNPJ, String> {
 
+	@Override
+	public boolean isValid(String cnpj, ConstraintValidatorContext context) {
 		if (cnpj == null) {
-			return;
+			return true;
 		}
-
-		if (cnpj.length() != 14 || hasAllRepeatedDigits(cnpj)) {
-			isInvalid();
+		if (cnpj.length() != 14 || !cnpj.matches("\\d*") || hasAllRepeatedDigits(cnpj)) {
+			return false;
 		}
-
 		String cnpjSemDigito = cnpj.substring(0, cnpj.length() - 2);
 		String digitos = cnpj.substring(cnpj.length() - 2);
-		if (!calculaDigitos(cnpjSemDigito).equals(digitos)) {
-			isInvalid();
-		}
-
+		return calculaDigitos(cnpjSemDigito).equals(digitos);
 	}
 
-	private void isInvalid(){
-		throw new DomainEntityValidationException("Cnpj.value: CNPJ inválido");
+	private boolean hasAllRepeatedDigits(String cnpj) {
+		return cnpj.chars().filter(Character::isDigit).distinct().count() == 1;
 	}
 
+	/*
+	 * This method is a copy from the stella-core library https://github.com/caelum/caelum-stella/
+	 */
 	private String calculaDigitos(String cnpjSemDigito) {
 		DigitoPara digitoPara = new DigitoPara(cnpjSemDigito);
 		digitoPara.complementarAoModulo().trocandoPorSeEncontrar("0", 10, 11).mod(11);
@@ -40,10 +36,6 @@ public class MyCnpjValidator implements CnpjValidator {
 		String digito2 = digitoPara.calcula();
 
 		return digito1 + digito2;
-	}
-
-	private boolean hasAllRepeatedDigits(String cnpj) {
-		return cnpj.chars().filter(Character::isDigit).distinct().count() == 1;
 	}
 
 }

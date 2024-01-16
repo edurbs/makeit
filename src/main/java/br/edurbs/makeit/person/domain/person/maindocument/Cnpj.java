@@ -1,15 +1,15 @@
 package br.edurbs.makeit.person.domain.person.maindocument;
 
 import br.edurbs.makeit.person.domain.ValueObject;
-import br.edurbs.makeit.person.domain.validation.MyCnpjValidator;
+import br.edurbs.makeit.person.domain.validation.annotation.ValidCNPJ;
 
 
-public record Cnpj( String value) implements MainDocument, ValueObject {
+public record Cnpj(@ValidCNPJ(message = "CNPJ inválido") String value)
+		implements MainDocument, ValueObject {
 
-    public Cnpj(String value) {
+	public Cnpj(String value) {
 		this.value = value.replaceAll("\\D+", "");
-		new MyCnpjValidator().validate(this.value);
-        this.validate();
-    }
+		this.validate();
+	}
 
 }
