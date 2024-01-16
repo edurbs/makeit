@@ -11,5 +11,4 @@ public record Country(@NotBlank String id, @NotBlank String value) implements Va
 		this.validate();
 	}
 
-	// TODO tests
 }
