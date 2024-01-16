@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
-import br.edurbs.makeit.person.domain.person.exception.InvalidCnpjException;
+import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
+import br.edurbs.makeit.person.domain.exception.InvalidCnpjException;
 
 class CnpjTest {
 

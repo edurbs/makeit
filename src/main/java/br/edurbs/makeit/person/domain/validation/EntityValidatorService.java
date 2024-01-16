@@ -2,7 +2,7 @@ package br.edurbs.makeit.person.domain.validation;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
+import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

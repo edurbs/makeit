@@ -15,4 +15,6 @@ public record Phone(@NotNull PhoneType phoneType, @NotBlank String number, Phone
         phoneValidator.validate(number);
     }
 
+	// TODO add @Phone to validate
+
 }

@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
+import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
 import br.edurbs.makeit.person.domain.validation.MyPhoneValidator;
 import br.edurbs.makeit.person.domain.validation.PhoneValidator;
 

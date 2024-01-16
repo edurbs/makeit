@@ -1,4 +1,4 @@
-package br.edurbs.makeit.person.domain.person.exception;
+package br.edurbs.makeit.person.domain.exception;
 
 public class InvalidCpfException extends RuntimeException {
 

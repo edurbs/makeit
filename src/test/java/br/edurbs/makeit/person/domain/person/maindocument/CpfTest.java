@@ -8,8 +8,8 @@ import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
-import br.edurbs.makeit.person.domain.person.exception.InvalidCpfException;
+import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
+import br.edurbs.makeit.person.domain.exception.InvalidCpfException;
 
 class CpfTest {
 	String validNumberWithMask = "324.818.410-85";

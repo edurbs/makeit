@@ -3,7 +3,7 @@ package br.edurbs.makeit.person.infra.validation;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
-import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
+import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
 import br.edurbs.makeit.person.domain.validation.PhoneValidator;
 
 public class GooglePhoneValidator implements PhoneValidator {

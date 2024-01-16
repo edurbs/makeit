@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import br.edurbs.makeit.person.domain.person.exception.DomainEntityValidationException;
+import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
 
 @ExtendWith(MockitoExtension.class)
 class EmailTest {

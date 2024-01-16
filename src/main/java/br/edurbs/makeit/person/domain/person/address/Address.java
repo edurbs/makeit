@@ -10,8 +10,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Address {
 
-    String id;
-    String zipCode;
+	@NotBlank
+	String id;
+
+    ZipCode zipCode;
 
     @NotBlank
     @Size(min = 3)
@@ -21,13 +23,10 @@ public class Address {
     String complement;
     String neighborhood;
 
-    @Nonnull
-    City city;
+	@Nonnull
+	City city;
 
-    boolean isZipCodeValid() {
-        return (zipCode.isBlank())
-                || (!zipCode.isBlank()
-                        && city.getCountry().getName().equals("Brasil")
-                        && !zipCode.matches("\\d{2}.\\d{3}-\\d{3}"));
-    }
+	@Nonnull
+	Country country;
+
 }
