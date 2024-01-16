@@ -11,5 +11,5 @@ public enum Gender {
     OTHER("Outro"),
     NONE("Não informado");
 
-    private final String name;
+    private final String description;
 }

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -52,17 +51,22 @@ class CnpjTest {
 
 	@Test
 	void givenValidNumber_whenCreateCnpj_thenNotThrows() throws InvalidCnpjException {
-		var cnpj = new Cnpj(validNumber);
-		assertDoesNotThrow(() -> cnpj.validate());
+		assertDoesNotThrow(() -> new Cnpj(validNumber));
 	}
 
 	@Test
 	void testEqualsAndHashCode() {
 		Cnpj cnpj1 = new Cnpj(validNumber);
 		Cnpj cnpj2 = new Cnpj(validNumber);
-
-		assertTrue(cnpj1.equals(cnpj2));
+		assertEquals(cnpj2, cnpj1);
 		assertEquals(cnpj1.hashCode(), cnpj2.hashCode());
 		assertNotNull(cnpj1.toString());
+	}
+
+	@Test
+	void givenCnpjWithouMask_whenGet_thenMask() {
+		Cnpj cnpj = new Cnpj(validNumber);
+		String mask = cnpj.withMask();
+		assertEquals( validNumberWithMask, mask);
 	}
 }

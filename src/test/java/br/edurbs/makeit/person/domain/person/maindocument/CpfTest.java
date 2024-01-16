@@ -54,4 +54,11 @@ class CpfTest {
 		assertTrue(Modifier.isFinal(Cpf.class.getModifiers()));
 	}
 
+	@Test
+	void givenCpfWithouMask_whenGet_thenMask() {
+		Cpf cpf = new Cpf(validNumber);
+		String mask = cpf.withMask();
+		assertEquals( validNumberWithMask, mask);
+	}
+
 }

@@ -8,6 +8,6 @@ class GenderTest {
     void getName_returnsCorrectValue() {
         Gender male = Gender.MALE;
 
-        assertEquals("Masculino", male.getName());
+        assertEquals("Masculino", male.getDescription());
     }
 }

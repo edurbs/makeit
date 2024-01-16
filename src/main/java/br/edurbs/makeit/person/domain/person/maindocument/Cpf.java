@@ -12,7 +12,7 @@ public record Cpf(@ValidCPF(message = "CPF inválido") @NotBlank String value)
 		this.validate();
 	}
 
-	public String cpfWithMask() {
+	public String withMask() {
 		var cpf = this.value;
 		cpf = cpf.substring(0, 3)
 				+ "." + cpf.substring(3, 6)
