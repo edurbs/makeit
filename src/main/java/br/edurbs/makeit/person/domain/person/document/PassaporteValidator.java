@@ -7,7 +7,7 @@ public class PassaporteValidator implements DocumentValidator {
 
 	@Override
 	public boolean isValid(String value) {
-		Pattern pattern = Pattern.compile("\\[A-Z]{2}\\d{6}");
+		Pattern pattern = Pattern.compile("^[A-Z]{2}\\d{6}$");
 		Matcher matcher = pattern.matcher(value);
 		return matcher.find();
 	}

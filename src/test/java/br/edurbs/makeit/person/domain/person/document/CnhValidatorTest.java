@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class CnhValidatorTest {
 
@@ -32,9 +34,10 @@ class CnhValidatorTest {
 		assertFalse(new CnhValidator().isValid("11111111111"));
 	}
 
-	@Test
-	void givenValidCnh_whenIsValid_thenReturnTrue() {
-		assertTrue(new CnhValidator().isValid("08303031121"));
+	@ParameterizedTest
+	@ValueSource(strings = {"08303031121", "14211726794", "40387914224", "82086974994", "73994336704"})
+	void givenValidCnh_whenIsValid_thenReturnTrue(String value) {
+		assertTrue(new CnhValidator().isValid(value));
 	}
 
 	@Test
