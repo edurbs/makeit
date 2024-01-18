@@ -18,7 +18,10 @@ class DocumentTest {
 	void givenInvalidRg_whenValidate_thenThrowDomainEntityValidationException() {
 		assertThrows(DomainEntityValidationException.class, () -> new Document(documentType, ""));
 		assertThrows(DomainEntityValidationException.class, () -> new Document(documentType, null));
-		assertThrows(DomainEntityValidationException.class, () -> new Document(null, "some number"));
+		assertThrows(DomainEntityValidationException.class,
+				() -> new Document(null, "some number"));
+		assertThrows(DomainEntityValidationException.class,
+				() -> new Document(DocumentType.CNH, "asd"));
 	}
 
 }

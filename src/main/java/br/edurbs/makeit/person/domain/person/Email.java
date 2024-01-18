@@ -3,9 +3,11 @@ package br.edurbs.makeit.person.domain.person;
 import br.edurbs.makeit.person.domain.DomainEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
+@EqualsAndHashCode
 public class Email implements DomainEntity {
     @NotBlank
     String id;
@@ -16,11 +18,28 @@ public class Email implements DomainEntity {
     @NotNull
     EmailAddress emailAddress;
 
-    public Email(@NotBlank String id, EmailType emailType, EmailAddress emailAddress) {
-        this.id = id;
-        this.emailType = emailType;
-        this.emailAddress = emailAddress;
-        this.validate();
-    }
+	public Email(@NotBlank String id, EmailType emailType, EmailAddress emailAddress) {
+		this.id = id;
+		this.emailType = emailType;
+		this.emailAddress = emailAddress;
+		this.validate();
+	}
+
+	public void setId(String id) {
+		this.id = id;
+		this.validate();
+	}
+
+	public void setEmailType(EmailType emailType) {
+		this.emailType = emailType;
+		this.validate();
+	}
+
+	public void setEmailAddress(EmailAddress emailAddress) {
+		this.emailAddress = emailAddress;
+		this.validate();
+	}
+
+
 
 }

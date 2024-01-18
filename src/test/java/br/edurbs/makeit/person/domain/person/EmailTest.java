@@ -6,21 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
 
-@ExtendWith(MockitoExtension.class)
 class EmailTest {
 
-    String id = "1";
+	String id = "1";
 
-    @Mock
-    EmailType emailType;
+    EmailType emailType = new EmailType("valid");
 
-    @Mock
-    EmailAddress email;
+    EmailAddress email = new EmailAddress("valid@email.com");
+
+	Email validEmail = new Email(id, emailType, email);
 
     @Test
     void classMustBeNotFinal() {
@@ -36,19 +32,25 @@ class EmailTest {
     void givenInvalidId_whenCreateEmail_thenThrows() {
         assertThrows(DomainEntityValidationException.class,
                 () -> new Email("", emailType, email));
-        assertThrows(DomainEntityValidationException.class, () -> new Email(null, emailType, email));
+		assertThrows(DomainEntityValidationException.class,
+				() -> new Email(null, emailType, email));
+
+		assertThrows(DomainEntityValidationException.class, () -> validEmail.setId(""));
+		assertThrows(DomainEntityValidationException.class, () -> validEmail.setId(null));
     }
 
     @Test
     void givenInvalidEmailType_whenCreateEmail_thenThrows() {
         assertThrows(DomainEntityValidationException.class,
-                () -> new Email(id, null, email));
+				() -> new Email(id, null, email));
+		assertThrows(DomainEntityValidationException.class, () -> validEmail.setEmailType(null));
     }
 
     @Test
     void givenInvalidEmail_whenCreateEmail_thenThrows() {
         assertThrows(DomainEntityValidationException.class,
-                () -> new Email(id, emailType, null));
+				() -> new Email(id, emailType, null));
+		assertThrows(DomainEntityValidationException.class, () -> validEmail.setEmailAddress(null));
     }
 
     @Test
