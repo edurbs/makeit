@@ -4,12 +4,15 @@ import br.edurbs.makeit.person.domain.DomainEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Email implements DomainEntity {
-    @NotBlank
+
+	@Include
+	@NotBlank
     String id;
 
     @NotNull

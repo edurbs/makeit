@@ -3,6 +3,7 @@ package br.edurbs.makeit.person.domain.person;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.lang.reflect.Modifier;
 import org.junit.jupiter.api.Test;
@@ -67,12 +68,16 @@ class EmailTest {
     }
 
     @Test
-    void givenEmail_whenCreate_thenReturnEmail() {
-        Email emailAddress = new Email(id, emailType, email);
-        assertEquals(email, emailAddress.getEmailAddress());
+	void givenEmail_whenCreate_thenReturnEmail() {
+		Email emailAddress = new Email(id, emailType, email);
+		assertEquals(email, emailAddress.getEmailAddress());
+	}
 
-    }
-
-
+	@Test
+	void givenNotEqualsId_whenCompare_thenReturnFalse() {
+		Email newEmailAddress = new Email("2", emailType, email);
+		assertNotEquals(validEmail, newEmailAddress);
+		assertNotEquals(validEmail.hashCode(), newEmailAddress.hashCode());
+	}
 
 }

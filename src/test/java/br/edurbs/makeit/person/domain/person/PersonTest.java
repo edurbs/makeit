@@ -28,6 +28,12 @@ class PersonTest {
 		person = new Person("1", PersonType.FISICA, "Some Name");
     }
 
+	@Test
+	void givenEqualsId_whenEquals_thenReturnsTrue() {
+		var person2 = new Person("1", PersonType.JURIDICA, "Another Name");
+		assertEquals(person, person2);
+		assertEquals(person.hashCode(), person2.hashCode());
+	}
 
     @Test
     void givenValidPerson_whenCreate_thenDoesNotThrows() {

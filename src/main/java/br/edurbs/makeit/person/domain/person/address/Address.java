@@ -4,14 +4,19 @@ import br.edurbs.makeit.person.domain.DomainEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Include;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Address implements DomainEntity {
 
+	@Include
 	@NotBlank
 	@Setter(AccessLevel.NONE)
 	String id;

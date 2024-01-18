@@ -30,6 +30,13 @@ class AddressTest {
 	}
 
 	@Test
+	void givenSameId_whenEquals_returnTrue() {
+		var address = new Address("id", "other address");
+		assertEquals(this.address, address);
+		assertEquals(this.address.hashCode(), address.hashCode());
+	}
+
+	@Test
 	void givenValidAddress_whenCreate_thenDoesNotThrows() {
 		assertDoesNotThrow(() -> new Address("id","some address"));
 	}
