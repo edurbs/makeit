@@ -16,7 +16,7 @@ public record Document(@NotNull DocumentType documentType, @NotBlank String valu
 				DocumentType.CNH, new CnhValidator(),
 				DocumentType.RG, new DocumentWithOutValidation(),
 				DocumentType.PASSAPORTE, new PassaporteValidator(),
-				DocumentType.TITULO_ELEITORAL, new TituloEleitoralValidator(),
+				DocumentType.TITULO_ELEITORAL, new DocumentWithOutValidation(),
 				DocumentType.IE, new DocumentWithOutValidation(),
 				DocumentType.IM, new DocumentWithOutValidation(),
 				DocumentType.OUTRO, new DocumentWithOutValidation());
