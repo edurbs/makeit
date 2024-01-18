@@ -11,9 +11,10 @@ public enum DocumentType {
     PASSAPORTE("Passaporte"),
     TITULO_ELEITORAL("Titulo Eleitoral"),
     IE("Inscricão Estadual"),
-    IM("Inscricão Municipal");
+	IM("Inscricão Municipal"),
+	OUTRO("Outro");
 
     private final String name;
 
-    // TODO make a class for each document with validation
+
 }
