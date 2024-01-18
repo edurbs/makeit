@@ -1,22 +1,20 @@
 package br.edurbs.makeit.person.domain.person.address;
 
-import jakarta.annotation.Nonnull;
+import br.edurbs.makeit.person.domain.DomainEntity;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
+import jakarta.validation.constraints.NotNull;
 
-@Data
-@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class City {
+public record City(
+		@NotBlank String id,
+		@NotBlank String name,
+		@NotNull FederationUnity federationUnity,
+		@NotNull Country country) implements DomainEntity {
 
-    String id;
-
-    @NotBlank
-    String name;
-
-    FederationUnity uf;
-
-    @Nonnull
-    Country country;
-
+	public City(String id, String name, FederationUnity federationUnity, Country country) {
+		this.id = id;
+		this.name = name;
+		this.federationUnity = federationUnity;
+		this.country = country;
+		this.validate();
+	}
 }

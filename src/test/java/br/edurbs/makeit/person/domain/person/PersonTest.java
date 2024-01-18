@@ -1,8 +1,7 @@
 package br.edurbs.makeit.person.domain.person;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import br.edurbs.makeit.person.domain.exception.DomainEntityValidationException;
 import br.edurbs.makeit.person.domain.person.address.Address;
 import br.edurbs.makeit.person.domain.person.document.Document;
 import br.edurbs.makeit.person.domain.person.maindocument.Cpf;
@@ -25,17 +25,13 @@ class PersonTest {
 
     @BeforeEach
     void createValidPerson() {
-        person = new Person(PersonType.FISICA, "Some Name");
+		person = new Person("1", PersonType.FISICA, "Some Name");
     }
 
-    @Test
-    void givenValidParameterrs_whenCreate_shouldNotBeNull() {
-        assertNotNull(person);
-    }
 
     @Test
-    void givenValidPerson_whenCreate_thenIsValid() {
-        assertTrue(person.isValid());
+    void givenValidPerson_whenCreate_thenDoesNotThrows() {
+		assertDoesNotThrow(() -> createValidPerson());
     }
 
     @Test
@@ -70,12 +66,12 @@ class PersonTest {
 
     @Test
     void givenNullPersonType_whenCreate_thenThrows() {
-        assertThrows(NullPointerException.class, () -> new Person(null, "Some Name"));
+        assertThrows(DomainEntityValidationException.class, () -> new Person("1",null, "Some Name"));
     }
 
     @Test
     void givenNullPersonType_whenSet_thenThrows() {
-        assertThrows(NullPointerException.class,
+        assertThrows(DomainEntityValidationException.class,
                 () -> person.setPersonType(null));
     }
 
@@ -87,34 +83,32 @@ class PersonTest {
 
     @Test
     void givenNullName_whenCreate_thenThrows() {
-        assertThrows(NullPointerException.class,
-                () -> new Person(PersonType.FISICA, null));
+        assertThrows(DomainEntityValidationException.class,
+                () -> new Person("1", PersonType.FISICA, null));
     }
 
     @Test
-    void givenBlankName_whenCreate_thenIsNotValid() {
-        var invalidPerson = new Person(PersonType.FISICA, "");
-        assertFalse(invalidPerson.isValid());
+	void givenBlankName_whenCreate_thenThrows() {
+		assertThrows(DomainEntityValidationException.class,
+                () -> new Person("1", PersonType.FISICA, ""));
     }
 
     @Test
     void givenBlankName_whenSet_thenIsNotValid() {
-        var invalidPerson = new Person(PersonType.FISICA, "Valid Name");
-        invalidPerson.setName("");
-        assertFalse(invalidPerson.isValid());
+        var validPerson = new Person("1", PersonType.FISICA, "Valid Name");
+        assertThrows(DomainEntityValidationException.class, () ->  validPerson.setName(""));
     }
 
     @Test
-    void givenNameWithLessThan3Characters_whenCreate_thenIsNotValid() {
-        var invalidPerson = new Person(PersonType.FISICA, "a");
-        assertFalse(invalidPerson.isValid());
+    void givenNameWithLessThan3Characters_whenCreate_thenThrows() {
+		assertThrows(DomainEntityValidationException.class, () ->new Person("1", PersonType.FISICA, "a"));
     }
 
     @Test
     void givenNullName_whenSet_thenThrows() {
-        var invalidPerson = new Person(PersonType.FISICA, "Some valid name");
-        assertThrows(NullPointerException.class,
-                () -> invalidPerson.setName(null));
+        var validPerson = new Person("1", PersonType.FISICA, "Some valid name");
+        assertThrows(DomainEntityValidationException.class,
+                () -> validPerson.setName(null));
     }
 
     @Test
@@ -139,15 +133,16 @@ class PersonTest {
 
     @Test
     void givenBirthDate_whenSet_thenGetSameBirthDate() {
-        var birthDate = LocalDate.now();
+        var birthDate = LocalDate.now().minusDays(1);
         person.setBirthDate(birthDate);
         assertEquals(birthDate, person.getBirthDate());
     }
 
     @Test
-    void givenInvalidBirthDate_whenSet_thenisNotValid() {
-        person.setBirthDate(LocalDate.now().plusDays(1));
-        assertFalse(person.isValid());
+	void givenInvalidBirthDate_whenSet_thenThrows() {
+		LocalDate plusDays = LocalDate.now().plusDays(1);
+		assertThrows(DomainEntityValidationException.class,
+				() -> person.setBirthDate(plusDays));
     }
 
     @Test

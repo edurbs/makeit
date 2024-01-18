@@ -1,32 +1,48 @@
 package br.edurbs.makeit.person.domain.person.address;
 
-import jakarta.annotation.Nonnull;
+import br.edurbs.makeit.person.domain.DomainEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class Address {
+public class Address implements DomainEntity {
 
 	@NotBlank
+	@Setter(AccessLevel.NONE)
 	String id;
 
-    ZipCode zipCode;
-
     @NotBlank
-    @Size(min = 3)
+	@Size(min = 3)
+	@Setter(AccessLevel.NONE)
     String street;
 
     String number;
     String complement;
     String neighborhood;
-
-	@Nonnull
 	City city;
-
-	@Nonnull
 	Country country;
+	ZipCode zipCode;
+
+	public Address(String id, String street) {
+		this.id = id;
+		this.street = street;
+		this.validate();
+	}
+
+	public void setId(String id) {
+		this.id = id;
+		this.validate();
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+		this.validate();
+	}
+
 
 }
